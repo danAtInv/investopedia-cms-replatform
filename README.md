@@ -1,2 +1,2 @@
 # Investopedia-cms-replatform
-Requirements for re-platforming the Investopedia CMS
+Project artifacts for the Investopedia CMS Replatform project.
