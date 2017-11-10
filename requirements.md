@@ -7,12 +7,8 @@ Motivations for getting off the current architecture are detailed here: https://
 High level requirements. These are the functional requirements that must be met with the new design.
 At some point we will need to review this list and decide what the priority is on each as well as divide up into milestone targets.
 
-## CMS Functionality
-- Must have a CMS with reasonable editor workflow (will need to work with the editorial team to determine if the current workflow is ideal).
-  - Importance: High
-- Editors only work in one CMS on a daily basis, no "For content type X login here, for content type Y login here"
-  - Importance: High
-- Preview Mode: Ability to have a "preview mode" for unpublished content so editors can see what their page will look like before they publish
+## CMS Compatibility
+- The system should be designed to be loosely-coupled to any particular CMS
   - Importance: High
 
 ## Rendering Functionality
@@ -26,31 +22,29 @@ At some point we will need to review this list and decide what the priority is o
     - login page
     - Auto-generated pages per stock (eg /markets/stocks/aapl)
     - Landing Pages (eg /news/)
+    - User-facing tools eg calculators, broker reviews, watchlist
   - Importance: High
-- Ability to serve ads from the same accounts as the existing architecture? (New ad support libraries?)
-- The most common UI elements on the site are:
+- Ability to serve ads from the same accounts as the existing architecture - eg should work with same DFP account
+  - Importance: High
+- We should demonstrate building the most common UI elements on the site which are:
   - Header / Footer
   - Content Listing / Related Content blocks
     - They show things like "other content related to this one", "Latest content in a certain category".
     - eg /news/apple-caught-uber-breaking-rules-aapl/ - see "RELATED ARTICLES"
     - These are basically a list of content that has some variation of a title, url, picture, summary; exact render options should be configurable per page
     - Have different data-sources and filters, which should be configurable per page
-- Universal: Universal or isomorphic is an industry term for being able to use the same code on the server and browser.
-  - Current Use Cases:
-    - Infinite Scroll on terms pages
-    - Related content blocks on articles must render client-side to avoid article-too-long errors.  They must render server-side on landing pages for SEO.
-  - Importance: ?
 
 ## Development Efficiency
 - Developers must be able to create new basic pages quickly (< 1 day)
+  - TODO: if possible enumerate types of work and provide benchmarks for each.
   - Importance: High
-- Development efficiency: Given a bug to fix or a feature to implement, how fast can one developer or development team complete this task?  There are several factors that contribute to this metric.  Examples are:
-  - Usefulness or errors
-  - The ability for the original and non-original developers to reason about all the location of all code that contributes to a feature.  For example, if there are a lot of declarative statements that need to be made that are spread around different files, this can be difficult to reason about.
+- Standards based on industry or community best practices are used rather than inventing our own
   - Importance: High
 - Modularity of code: when working on something like http://www.investopedia.com/trump/, it is useful to be able to work on components of the page independently, and also re-use those components in other pages.  For example, "Partner Headlines" and "News" components are likely to be re-used on many pages.
   - Importance: High
 - Isolation of System components: Unlike our current system, changing something should have no chance to break an unrelated part of the site
+  - Importance: High
+- The system should be designed in a way that core components can have their behavior overriden for a specific use case in such a way that doesn't affect other use cases. - Example - one page wants to override a part of the header.
   - Importance: High
 - Testing: Entire system, front-to-back, must be designed to be testable with a focus on supporting test-first practices. This includes very fast-running unit tests, with heavy use of mocks, as well as browser testing to verify actual user interaction in various user agents.
   - Importance: High
@@ -63,20 +57,23 @@ At some point we will need to review this list and decide what the priority is o
 - Database/config changes are automated and easily distributed to all environments (include dev) without manual steps
   - Db changes are expressed as artifacts that can be committed to source control
   - The database is versioned so the system can know which artifacts need to be applied on any given system
-  - Ideally this is managed by the CMS so there is minimal friction with the way the CMS interacts with the database.
   - Importance: High
 - Error/exception monitoring (server and client side)
   - All errors on backend must produce a useful description and full call-stack to an error log as well as an email
-  - Front-end errors must be descriptive and provide detail in the console
+  - Front-end errors must be descriptive and provide detail in the console - should also log someplace where developers can access them.
   - Importance: High
 - Technology Fragmentation: A more desirable choice would take advantage of the existing (as of 2017-11) processes and tools such as unit testing, mocking, security scanning, best practices.
-  - Importance: Medium
+  - Importance: Low
 - Feature Flags: The system should provie a robust feature-flag system that can support deployment of new components as well as incremental updates to existing components.
   - As we all "on/off", the system should support the ability to deploy to a subset of the user population.
+  - This system should also be able to be used in an A/B test scenario
+  - Feature flags should be indepdent from A/B tests because they may have to occur at the same time.
   - Importance: High
 - Code organization: The system should be organized in such a way that it the components for the entire system do not have to be stored in a single code repository.
   - This should extend to sections of the site - for example - all the code that corresponds to the "/personal-finance" section of our site (and all sub urls) should be able to placed in it's own repository and it should be obvious how to achieve that.
   - Importance: High
+- It should be intuitive to a developer where all the things that contribute to page live.  Counter-examples today are where some stuff is happening in php templates, some is happening in various javascript files, other stuff is in css.
+  - Implementation note: Isomorphic javascript can help as something is to explore
 
 ## Performance and Stability
 - Asset Compilation: We must be able to perform standard build-time optimization of browser-loaded assets, such as combining javascript into a single minified file - for performance reasons.
