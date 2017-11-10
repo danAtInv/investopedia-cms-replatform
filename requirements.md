@@ -71,6 +71,12 @@ At some point we will need to review this list and decide what the priority is o
   - Importance: High
 - Technology Fragmentation: A more desirable choice would take advantage of the existing (as of 2017-11) processes and tools such as unit testing, mocking, security scanning, best practices.
   - Importance: Medium
+- Feature Flags: The system should provie a robust feature-flag system that can support deployment of new components as well as incremental updates to existing components.
+  - As we all "on/off", the system should support the ability to deploy to a subset of the user population.
+  - Importance: High
+- Code organization: The system should be organized in such a way that it the components for the entire system do not have to be stored in a single code repository.
+  - This should extend to sections of the site - for example - all the code that corresponds to the "/personal-finance" section of our site (and all sub urls) should be able to placed in it's own repository and it should be obvious how to achieve that.
+  - Importance: High
 
 ## Performance and Stability
 - Asset Compilation: We must be able to perform standard build-time optimization of browser-loaded assets, such as combining javascript into a single minified file - for performance reasons.
@@ -79,10 +85,16 @@ At some point we will need to review this list and decide what the priority is o
   - Importance: High
 - Async: Ability to easily handle multiple asynchronous calls to micro-services.
   - Importance: High
+- Google AMP: For mobile sites, pages should be AMP compliant
+  - Importance: ?
 
 ## Integration and Interoperability
 - Must work with Optimizely
   - Example past pain: Academy Version 1 (academy.investopedia.com), learned that the Thought Industries single-page app architecture developed with EmberJS did not play well with Optimizely.  They had a hard time modifying a simple thing like a web title.
+  - Importance: High
+
+## Security
+- The system should handle user uthentication by integrating either with the existing custom login (a.k.a. sitewide) system or a standards-based 3rd party system like Okta.
   - Importance: High
 
 ## Other
