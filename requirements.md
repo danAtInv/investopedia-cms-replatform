@@ -52,7 +52,7 @@ At some point we will need to review this list and decide what the priority is o
   - Importance: Medium
 - The new architecture will need to support running in multiple configurations (prod, dev, staging, qa , etc.) as well as provide a mechanism for local override of any setting. This is true of both the front and back end.
   - Importance: High
-- Database: The architecture must provide access to the data layer with a system that is easy to learn, powerful, and fast. It must also be possible to execute raw SQL when 
+- Database: The architecture must provide access to the data layer with a system that is easy to learn, powerful, and fast. It must also be possible to execute raw SQL when
     needed (e.g. for extra performance)
 - Database/config changes are automated and easily distributed to all environments (include dev) without manual steps
   - Db changes are expressed as artifacts that can be committed to source control
@@ -74,6 +74,8 @@ At some point we will need to review this list and decide what the priority is o
   - Importance: High
 - It should be intuitive to a developer where all the things that contribute to page live.  Counter-examples today are where some stuff is happening in php templates, some is happening in various javascript files, other stuff is in css.
   - Implementation note: Isomorphic javascript can help as something is to explore
+- It should support auto generating documentation from the source code. (e.g. apidoc in nodejs, Sphinx for Python)
+  - Importance: Medium
 
 ## Performance and Stability
 - Asset Compilation: We must be able to perform standard build-time optimization of browser-loaded assets, such as combining javascript into a single minified file - for performance reasons.
@@ -97,7 +99,7 @@ At some point we will need to review this list and decide what the priority is o
 ## Other
 - Stability and support: Given new technologies that emerge, how quickly will a standard library be created to support it?  How quickly are bugs and features fixed and added to existing libraries?  How many people are available to answer questions?
   - Importance: Medium
-- Community and Adoption: A better choice would be adopted by more users and major sites, as well as having an active community.  
+- Community and Adoption: A better choice would be adopted by more users and major sites, as well as having an active community.
   - Importance: Medium
 
 # Deliverables (WIP)
