@@ -12,10 +12,11 @@ At some point we will need to review this list and decide what the priority is o
   - Importance: High
 
 ## Rendering Functionality
-- Template / Layout variation: Choice of layout is dependent on factors like the Content Type, taxonomy, geo location; achievable with minimal repetition of code
+- Template / Layout variation: Choice of layout is dependent on factors like the Content Type, taxonomy, geo location, device; achievable with minimal repetition of code
   - Importance: High
   - Example code: https://git.ask.com/investopedia/www/blob/master/sites/default/modules/custom/leadgen_template_switch/leadgen_template_switch.module#L89
   - Example Use Case: There was a past requirement to detect whether the page originated from a Search Engine Marketing (SEM) campaign and then rendering a different layout; the reason is that the SEM team are making advertising purchasing decisions based on a specific layout.  When we make changes to the layout on the site (which happens frequently), we may have to "freeze" the layout for pages that arrive from SEM until they have had time to adjust.
+  - Example Use Case: Due to our ad-block bypass software, some ads must be hidden on the back-end rather then in browser
 - Routing: We have two main types of pages:
   - content (eg. /news/apple-caught-uber-breaking-rules-aapl/) - This shows content stored in the CMS
   - non-content (eg. /markets/) - These are application or landing pages such as:
@@ -25,6 +26,10 @@ At some point we will need to review this list and decide what the priority is o
     - User-facing tools eg calculators, broker reviews, watchlist
   - Importance: High
 - Ability to serve ads from the same accounts as the existing architecture - eg should work with same DFP account
+  - Importance: High
+- Ability do analytics to the same GA accounts as the existing architecture
+  - Importance: High
+- Support previewing pages from CMS
   - Importance: High
 - We should demonstrate building the most common UI elements on the site which are:
   - Header / Footer
@@ -89,6 +94,10 @@ At some point we will need to review this list and decide what the priority is o
 - Must work with Optimizely
   - Example past pain: Academy Version 1 (academy.investopedia.com), learned that the Thought Industries single-page app architecture developed with EmberJS did not play well with Optimizely.  They had a hard time modifying a simple thing like a web title.
   - Importance: High
+- Support these use cases that GTM currently provides (can replace with alternate tech if approriate):
+	- Emergency fix without deploy
+	- Easy way to deploy 3rd party scripts
+	- Google Analytics convenience integrations
 
 ## Security
 - The system should handle user uthentication by integrating either with the existing custom login (a.k.a. sitewide) system or a standards-based 3rd party system like Okta.
@@ -107,6 +116,7 @@ Ideally some content can start moving to the new architecture before all deliver
 - Easy to use dev environment, testing frameworks, linting, code coverage tools, etc. all worked out and automated as much as possible
 - Production environment ready (not necessarily service code yet but in place and load tested to verify the tech stack)
 - Continuous integration and deployment
+- Front-end has been de-coupled from data sources
 - Interoperability with the existing site so that pages can be slowly migrated over
   - Pages in both new and old architecture serve from the same domain
   - Content is available in both systems or there is a well tested process for migrating data
